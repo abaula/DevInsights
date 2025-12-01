@@ -36,5 +36,6 @@
  - [Отсутствие программ развития для сильных специалистов](LackOfProgramsForStrongSpecialists/readme.md)
  - [Решения на основе личной симпатии или антипатии](DecisionsBasedOnPersonalLikesOrDislikes/readme.md)
  - [Снижение требований под слабых участников команды](LoweringRequirementsForWeakTeamMembers/readme.md)
+ - [Привлечение гуру со стороны](BringingInGuruFromOutside/readme.md)
 
 
