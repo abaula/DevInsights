@@ -34,5 +34,6 @@
  - [Отсутствие сопротивления вышестоящему руководству](LackOfResistanceToSeniorManagement/readme.md)
  - [Комплекс благодетеля](BenefactorComplex/readme.md)
  - [Отсутствие программ развития для сильных специалистов](LackOfProgramsForStrongSpecialists/readme.md)
+ - [Решения на основе личной симпатии или антипатии](DecisionsBasedOnPersonalLikesOrDislikes/readme.md)
 
 
