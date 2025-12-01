@@ -33,5 +33,6 @@
  - [Очарование перспективами](EnchantmentByProspects/readme.md)
  - [Отсутствие сопротивления вышестоящему руководству](LackOfResistanceToSeniorManagement/readme.md)
  - [Комплекс благодетеля](BenefactorComplex/readme.md)
+ - [Отсутствие программ развития для сильных специалистов](LackOfProgramsForStrongSpecialists/readme.md)
 
 
