@@ -29,5 +29,7 @@
 
  - [Манипулятивный стратег](ManipulativeStrategist/readme.md)
  - [Ценностные искажения в командах](ValueDistortionsInTeams/readme.md)
+ - [Ошибки делегирования](DelegationErrors/readme.md)
+ - [Очарование перспективами](EnchantmentByProspects/readme.md)
 
 
