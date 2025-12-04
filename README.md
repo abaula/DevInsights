@@ -10,6 +10,7 @@
 
 - [Function Object - как основа бизнес логики приложения](FunctionObject/readme.md)
 - [Снижаем когнитивную сложность при проектировании архитектуры приложения](ReducingCognitiveComplexity/readme.md)
+- [Шаблон проектирования Buffer](BufferPattern/readme.md)
 
 ## Инструменты разработки
 
