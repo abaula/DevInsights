@@ -40,5 +40,6 @@
  - [Снижение требований под слабых участников команды](LoweringRequirementsForWeakTeamMembers/readme.md)
  - [Привлечение гуру со стороны](BringingInGuruFromOutside/readme.md)
  - [Культ мускулинных интеллектуалов](MuscularIntellectual/readme.md)
+ - [Менеджер - Мама утка](MotherDuck/readme.md)
 
 
