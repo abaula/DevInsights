@@ -67,6 +67,30 @@ builder.Services.AddScoped<Lazy<IDatabaseService>>();
 builder.Services.AddScoped<Func<IDatabaseService>>(sp => () => sp.GetRequiredService<IDatabaseService>());
 ```
 
+Вот хороший пример, поясняющий разницу в поведении и показывающий преимущества использования `Lazy<T>`.
+
+```scharp
+public class ProductController : ControllerBase
+{
+    private readonly Func<IDatabaseService> _db;
+
+    public ProductController(Func<IDatabaseService> db)
+    {
+        _db = db;
+    }
+
+    public void DoSomthing()
+    {
+        _db().CheckConnection();
+        _db().SelectSomthing();
+    }
+}
+```
+
+Как будет работать этот код, если `IDatabaseService` зарегистрирован в контейнере через `AddTransient`? Каждый вызов `_db()` будет возвращать новый экземпляр объекта `IDatabaseService`. Скорее всего это не то поведение, которое вам нужно.
+
+Использование `Lazy<T>` лишено такого недостатка, так как он сам является контейнером.
+
 ## Практические рекомендации
 
 1. **Используйте `Lazy<T>` для**:
