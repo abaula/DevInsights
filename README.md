@@ -12,6 +12,7 @@
 - [Снижаем когнитивную сложность при проектировании архитектуры приложения](ReducingCognitiveComplexity/readme.md)
 - [Шаблон проектирования Buffer](BufferPattern/readme.md)
 - [Архитектура подсистемы управления заданиями](TaskMangementArchitecture/readme.md)
+- [Использование Lazy с Dependency Injection](LazyDependencyInjection/readme.md)
 
 ## Инструменты разработки
 
