@@ -16,7 +16,7 @@ Dependency Injection (DI) — это популярный механизм вн�
 
 ```csharp
 builder.Services.AddScoped<IDatabaseService, SqlDatabaseService>();
-builder.Services.AddScoped<Lazy<IDatabaseService>>();
+builder.Services.AddScoped(sp => new Lazy<IDatabaseService>(() => sp.GetRequiredService<IDatabaseService>()));
 ```
 
 После этого можно внедрять обёрнутый сервис.
@@ -43,7 +43,7 @@ public class ProductController : ControllerBase
 
 ```csharp
 builder.Services.AddScoped<IDatabaseService, SqlDatabaseService>();
-builder.Services.AddScoped<Lazy<IDatabaseService>>();
+builder.Services.AddScoped(sp => new Lazy<IDatabaseService>(() => sp.GetRequiredService<IDatabaseService>()));
 ```
 
 Тут оба сервиса имеют lifetime `scoped` и во всех внедрениях внутри одного `scope` будет внедрён один и тот же экземпляр `Lazy<IDatabaseService>` и это ожидаемое поведение.
@@ -52,7 +52,7 @@ builder.Services.AddScoped<Lazy<IDatabaseService>>();
 
 ```csharp
 builder.Services.AddTransient<IDatabaseService, SqlDatabaseService>();
-builder.Services.AddScoped<Lazy<IDatabaseService>>();
+builder.Services.AddScoped(sp => new Lazy<IDatabaseService>(() => sp.GetRequiredService<IDatabaseService>()));
 ```
 
 Тут очевидно, что `Lazy<IDatabaseService>` инкапсулирует созданный объект `IDatabaseService` внутри `scope`.
@@ -62,7 +62,7 @@ builder.Services.AddScoped<Lazy<IDatabaseService>>();
 
 Это принципиально разное поведение, которое нужно учитывать.
 
-**`Func<T>`** регистрируется так:
+**`Func<T>`** регистрируется аналогично:
 ```csharp
 builder.Services.AddScoped<Func<IDatabaseService>>(sp => () => sp.GetRequiredService<IDatabaseService>());
 ```
