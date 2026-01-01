@@ -42,5 +42,6 @@
  - [Привлечение гуру со стороны](BringingInGuruFromOutside/readme.md)
  - [Культ мускулинных интеллектуалов](MuscularIntellectual/readme.md)
  - [Менеджер - Мама утка](MotherDuck/readme.md)
+ - [Почему паразиты побеждают](WhyParasitesWin/readme.md)
 
 
