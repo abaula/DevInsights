@@ -55,7 +55,7 @@ class OrderServiceLogger
 }
 
 var orderService = new OrderService();
-var logger = new FileLogger();
+var fileLogger = new FileLogger();
 var orderServiceLogger = new OrderServiceLogger(fileLogger, orderService);
 orderService.CreateOrder(...);
 ```
@@ -162,7 +162,7 @@ public interface IOrderService
 }
 ```
 
-Таким образом DI контейнер передаст в конструтор `OrderServiceLogger` экземпляр `OrderService`.
+Таким образом DI контейнер передаст в конструктор `OrderServiceLogger` экземпляр `OrderService`.
 
 **В бизнес логике необходимо использовать только контракты**, что является рекомендуемым подходом.
 
