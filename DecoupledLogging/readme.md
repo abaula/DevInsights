@@ -1,159 +1,271 @@
-# Теневое логирование через события - полное разъединение бизнес-логики и логирования
+# Теневое логирование через события - полное разъединение бизнес-логики и логирования в DI среде
 
-# Теневое логирование через события: полный decoupling бизнес-логики
+Привет, коллеги!
 
-Привет, коллеги! Как senior .NET developer с опытом построения распределённых систем, хочу поделиться подходом к логированию, который радикально упрощает архитектуру и усиливает SOLID. Рассмотрим пример из репозитория [abaula/MixedCode](https://github.com/abaula/MixedCode), где показан decoupled logging через события C#.
+Хочу поделиться подходом к логированию, который радикально упрощает архитектуру и усиливает SOLID.
 
-## Ключевые принципы подхода
-
-Класс **не занимается логированием напрямую**, а генерирует события для ключевых операций: `OrderCreated`, `OrderFailed`, `PaymentProcessed`. Бизнес-логика остаётся чистой, без зависимостей от `ILogger` или любых логгеров.
-
-Решение **"как именно писать в лог и какие события слушать"** выносится на уровень приложения — в `Program.cs` или DI-контейнер. Там настраивается обработчик, который подписывается на события и пишет структурированные логи.
-
-## Усиление SRP и SOLID
-
-Этот подход **максимально выражает принцип единственной ответственности (SRP)**:
-- Бизнес-класс отвечает ТОЛЬКО за доменную логику
-- Логирование — отдельная обязанность внешнего обработчика
-
-DIP соблюдается идеально — класс не зависит от абстракций логирования. OCP тоже выигрывает: новые способы обработки событий (метрики, аудит, уведомления) добавляются без изменения класса.
-
-## Проблемы традиционных wrapper'ов
-
-Decorator/wrapper для логирования удобен, но **навязывает правила использования**:
-- Клиентский код должен работать через wrapper
-- Рефакторинг усложняется
-- Появляется дублирование и проблемы с наследованием
-
-Такой подход делает логирование **не "теневым"** — потребители косвенно знают о нём.
-
-## Теневое логирование через события
-
-**Суть**: использование методов класса остаётся неизменным независимо от логирования. В `Program.cs` создаётся инстанс класса, и сразу подписываются обработчики:
-
-```csharp
-var orderService = new OrderService();
-orderService.OrderCreated += (s, e) =>
-    logger.LogInformation("Order {OrderId} created", e.Order.Id);
-```
-
-Класс остаётся **прозрачным** для логирования — события генерируются "про себя".
-
-## Хитрая регистрация с ConditionalWeakTable
-
-В примере реализован **специальный класс-подписчик**, регистрируемый в DI-контейнере через `ConditionalWeakTable<TClass, ILogger<TClass>>`.
-
-**Как это работает**:
-```
-var loggerTable = new ConditionalWeakTable<OrderService, ILogger<OrderService>>();
-orderService.OrderCreated += (s, e) => {
-    if (loggerTable.TryGetValue((OrderService)s, out var logger))
-        logger.LogInformation("Order created: {OrderId}", e.Order.Id);
-};
-```
-
-**Ключевые преимущества**:
-- Логгер **автоматически привязывается** к конкретному инстансу класса
-- **Слабые ссылки** гарантируют корректный lifetime: логгер живёт не дольше класса
-- Работает с transient/scoped сервисами без утечек памяти
-- **Централизованная подписка** в DI-контейнере
-
-## Плюсы подхода
-
-- **Полный decoupling**: класс testable без моков логгеров
-- **Мультиназначенность событий**: логи + метрики + аудит одним махом
-- **SOLID на максимум**: SRP/DIP/OCP в идеале
-- **Теневое подключение**: API класса не меняется
-- **Автоматический lifetime** через WeakTable
-- **DI-friendly**: прозрачная интеграция с Microsoft.Extensions.DependencyInjection
-
-## Минусы подхода
-
-- **Overhead событий**: аллокации в высоконагруженных системах (решается async void обработчиками)
-- **Сложность отладки**: логи не в стек-трейсе бизнес-метода
-- **Магия WeakTable**: добавляет уровень абстракции, усложняет понимание
-- **Performance lookup**: небольшой overhead поиска в таблице
-- **.NET-специфичность**: WeakTable есть не везде
-- **Verbose подписки**: без extension methods может быть много boilerplate
-
-## Когда использовать
-
-**Идеально для**:
-- Библиотек и доменных моделей
-- Микросервисов с множественными потребителями
-- Систем, где логирование/аудит/метрики настраиваются по-разному в разных окружениях
-
-**Менее подходит для**:
-- Простых CRUD-приложений (overengineering)
-- Критически горячих путей (overhead событий)
-
-## Итоговая архитектура в DI
-
-```csharp
-// Регистрация в Program.cs
-services.AddScoped<ILoggerTable>(provider =>
-    new LoggerTable(new ConditionalWeakTableFactory()));
-services.AddScoped<OrderService>();
-
-// Фабрика обработчиков
-services.AddTransient<EventLogger<OrderService>>();
-```
-
-Такой подход даёт **максимальную гибкость** при минимальных компромиссах. Рекомендую для серьёзных проектов, где архитектура важнее сиюминутной простоты.
-
-Пишите в комментариях ваш опыт с подобными паттернами! 🚀
-
-
-# Вынос логирования из класса: Decoupled Logging
+Сделал пример кода [GitHub](https://github.com/abaula/MixedCode/blob/master/DecoupledLogging/src/Program.cs), чтобы показать как работает теневое логирование (shadow decoupled logging) через события C#.
 
 ## Что такое decoupled logging?
 
-Decoupled logging (разделённое логирование) — архитектурный подход, при котором бизнес-классы **не содержат прямых вызовов логгеров** (типа `ILogger.LogInformation`). Вместо этого они:
-- Генерируют **события** (`EventHandler<OrderCreatedEventArgs>`)
-- Или используют **внешние обработчики** через DI/события/синглтоны
+Decoupled logging (разделённое логирование) - архитектурный подход, при котором бизнес-классы **не содержат прямых вызовов логгеров** (типа `ILogger.LogInformation`). Вместо этого:
+- Бизнес-классы генерируют **события**.
+- Обработкой событий занимаются **специализированные классы-логеры**.
+- Бизнес-классы ничего не знают о логгерах.
+- Логирование настраивается **централизованно** на уровне приложения, без загрязнения доменной логики.
 
-Логирование настраивается **централизованно** на уровне приложения, без загрязнения доменной логики. Классический пример — события C# с `ConditionalWeakTable` для lifetime-менеджмента, как в [MixedCode](https://github.com/abaula/MixedCode). [stackoverflow](https://stackoverflow.com/questions/550785/c-events-or-an-observer-interface-pros-cons)
+## "За" и "против" decoupled logging
 
-## За: Аргументы сторонников
+Существуют мнения "за" и "против" decoupled logging.
 
-**Сторонники** (DDD-энтузиасты, библиотечные разработчики) подчёркивают:
-- **Чистота SRP**: Класс фокусируется на бизнес-логике, логи — внешняя забота. Усиливает SOLID (DIP, OCP). [blog.stackademic](https://blog.stackademic.com/the-hidden-power-of-c-events-how-to-build-decoupled-scalable-systems-like-a-pro-8a62d166d3a2)
-- **Тестируемость**: Нет моков `ILogger`, классы работают standalone. [reddit](https://www.reddit.com/r/csharp/comments/swvyvs/inject_logger_vs_raising_events_in_console_app/)
-- **Гибкость**: Одно событие → логи + метрики + аудит. Легко менять логгеры (Serilog → NLog). [mol-tech](https://www.mol-tech.us/blog/events-and-delegates-csharp-dotnet-development)
-- **Decoupling для библиотек**: Потребитель сам решает, логировать ли. Нет жёстких зависимостей. [stackoverflow](https://stackoverflow.com/questions/1020967/using-delegates-or-interfaces-to-decouple-the-logging-best-practices-c-sharp)
-- **Масштабируемость**: События async, не блокируют горячие пути.
+Типичные аргументы "за":
 
-**Типичный комментарий**: "Логирование — cross-cutting concern, не для домена!" [reddit](https://www.reddit.com/r/csharp/comments/swvyvs/inject_logger_vs_raising_events_in_console_app/)
+- **Чистота SRP**: класс фокусируется на бизнес-логике, логи - внешняя забота.
+- **Тестируемость**: нет моков `ILogger`, классы работают standalone.
+- **Гибкость и масштабируемость**: одно событие можно обрабатывать всем нужными способами: логи, метрики, аудит. Легко менять логику обработки событий и библиотеки логирования.
+- **Decoupling для библиотек**: потребитель классов бизнес-логики сам решает, логировать события и какие именно. Нет жёстких зависимостей.
+- **Производительность**: бизнес-класс не форматирует данные для лога. При реализации обработчиков событий применяй мозг и быстрое кэширование входящих событий с последующей пост-обработкой - не блокирует бизнес логику.
 
-## Против: Аргументы оппонентов
+Возражения критиков сводятся к простому тезису - не усложняйте, если этого действительно не требуется - "inject ILogger и не парьтесь". Это мнение звучит разумно, я согласен с такой критикой - если у вас простое приложение, то не усложняйте его.
 
-**Противники** (прагматики, enterprise-разрабы) видят overengineering:
-- **Производительность**: События + WeakTable = аллокации, GC-pressure, overhead lookup. В hot paths критично. [jacksondunstan](https://www.jacksondunstan.com/articles/3621)
-- **Сложность**: Магия событий усложняет дебаг (стек-трейс размыт), отладку, понимание кода. [mol-tech](https://www.mol-tech.us/blog/events-and-delegates-csharp-dotnet-development)
-- **Memory leaks**: Неправильная отписка/WeakRef → утечки. Требует экспертизы. [jacksondunstan](https://www.jacksondunstan.com/articles/3621)
-- **Boilerplate**: Подписки, фабрики, таблицы — verbose код для простых случаев. [stackoverflow](https://stackoverflow.com/questions/1020967/using-delegates-or-interfaces-to-decouple-the-logging-best-practices-c-sharp)
-- **Простота важнее**: `ILogger` via DI — mature, zero-cost абстракция. Зачем изобретать велосипед? [stackoverflow](https://stackoverflow.com/questions/5646820/logger-wrapper-best-practice)
+## Вынос логирования из класса
 
-**Типичный комментарий**: "Для консольных apps/монолитов — inject ILogger и не парьтесь. Моки просты!" [reddit](https://www.reddit.com/r/csharp/comments/swvyvs/inject_logger_vs_raising_events_in_console_app/)
+Самый простой способ разделить бизнес-логику и логирование, это написать Wrapper для бизнес-класса.
 
-## Сравнение подходов
+Decorator/wrapper для логирования удобен, но **навязывает правила использования**:
+- Клиентский код должен работать через wrapper.
+- Рефакторинг усложняется.
+- Появляется дублирование и проблемы с наследованием.
 
-| Аспект          | Decoupled (события)                  | Coupled (ILogger в классе)          |
-|-----------------|--------------------------------------|-------------------------------------|
-| **SRP/SOLID**  | Высокий (полный decoupling)         | Средний (cross-cutting в домене)   |
-| **Perf**       | Overhead событий (~10-20% в hot)    | Минимальный                        |
-| **Тестирование**| Без моков                          | Моки ILogger (просто)              |
-| **Гибкость**   | Максимум (много обработчиков)       | Зависит от DI-конфига              |
-| **Сложность**  | Высокая (магия, WeakTable)          | Низкая (стандарт MS.Extensions)    |
-| **Использование**| Библиотеки, DDD, микросервисы     | CRUD, монолиты, простые apps       |
+Такой подход делает логирование **не "теневым"** - потребители косвенно знают о нём.
 
-Данные из дебатов на SO/Reddit. [stackoverflow](https://stackoverflow.com/questions/550785/c-events-or-an-observer-interface-pros-cons)
+## Полное разделение
 
-## Когда выбирать decoupled?
+Полное разделение бизнес-логики и логирования возможно только при использовании двух независимых объектов: бизнес-класс, обработчик логов.
 
-- **Да**: Библиотеки, shared домены, сложные события (логи+метрики).
-- **Нет**: Простые apps, perf-critical код, команды новичков.
+Простой пример:
 
-**Рекомендация**: Начните с `ILogger` DI. Переходите на события, если нужны мульти-обработчики или полная независимость. Баланс — ключ к хорошей архитектуре! 🚀
+```csharp
+class OrderServiceLogger
+{
+    public OrderServiceLogger(FileLogger logger, OrderService orderService)
+    {
+        orderService.OrderCreated += (s, e) => logger.LogInformation($"Order {e.OrderId} created.");
+    }
+}
+
+var orderService = new OrderService();
+var logger = new FileLogger();
+var orderServiceLogger = new OrderServiceLogger(fileLogger, orderService);
+orderService.CreateOrder(...);
+```
+
+Этот подход очевиден, но если приложение построено с использованием DI контейнера, то подход требует адаптации.
+
+## Уводим логирование в тень
+
+DI контейнеры выполняют 2 важных задачи:
+- Фабрика объектов
+- Управление временем жизни объектов
+
+С задачей создания объектов всё просто, DI контейнер вернёт нам 2 готовых объекта, при чём обработчик логов получит при создании экземпляр бизнес-класса и экземпляр логгера.
+
+```csharp
+var services = new ServiceCollection();
+services.AddScoped<FileLogger>();
+services.AddScoped<OrderServiceLogger>();
+services.AddScoped<OrderService>();
+var serviceProvider = services.BuildServiceProvider();
+
+var orderService = serviceProvider.GetRequiredService<OrderService>();
+var orderServiceLogger = serviceProvider.GetRequiredService<OrderServiceLogger>();
+```
+
+Проблема заключается в том, что теперь нам нужно управлять временем жизни обработчика логов `OrderServiceLogger`, т.е. явно хранить ссылку на созданный объект и синхронизировать его время жизни с временем жизни экземпляра бизнес-класса `OrderService`.
+
+Если больше ничего не делать, то нам придётся явно создавать новый экземпляр `OrderServiceLogger` везде, где мы создаём экземпляр `OrderService`, и следить чтобы время их жизни совпадало - это совсем не то поведение, которое нам нужно.
+
+**Нам нужно:**
+- Использовать в бизнес логике только экземпляры объектов бизнес логики, в нашем примере `OrderService`.
+- Бизнес логика ничего не должна знать об объектах выполняющих иные задачи в рамках приложения, в нашем примере это логирование через объект `OrderServiceLogger`.
+- При создании объекта бизнес логики, приложение должно гарантированно обеспечивать все реализованные для него сервисные функции - если для `OrderService` реализован `OrderServiceLogger`, то он должен вовремя создаватся и обрабатывать события.
+- Корректная работа сервисных функций включает оптимальное управление ресурсами приложения - экземпляр `OrderServiceLogger` должен удалятся из памяти после уничтожения связанного с ним объекта `OrderService`.
+
+Эти требования легко реализовать, даже в рамках DI контейнера. С созданием объектов мы уже разобрались, осталось реализовать функционал синхронизации их времени жизни, в этом нам помогут weak reference.
+
+Нам нужно обеспечить, чтобы созданный объект `OrderServiceLogger` жил не меньше чем экземпляр `OrderService` и удалялся когда он больше не нужен.
+
+Для этого нам требуется некий объект уровня приложения, который:
+- хранит ссылки на оба зависимых объекта.
+- следит за временем их жизни.
+- удалит `OrderServiceLogger` как только `OrderService` будет удалён.
+
+Мы можем сами реализовать такой класс, в котором есть **ключевой объект** и **зависимые объекты**. Архитектура такого класса проста:
+- ключевой объект (или несколько) хранится в виде слабых ссылок (weak reference), которые не блокируют объект от сборки мусора.
+- зависимые объекты хранятся в виде сильных ссылок, которые не дают сборщику мусора уничтожить их.
+- периодически проверяется состояние ключевых объектов - если они удалены, то удаляются и зависимые объекты.
+
+Для простого случая, можно использовать класс [ConditionalWeakTable<TKey,TValue>](https://learn.microsoft.com/ru-ru/dotnet/api/system.runtime.compilerservices.conditionalweaktable-2?view=net-8.0) из пространства имен `System.Runtime.CompilerServices`, который уже реализует такую логику.
+
+## Пишем логику для DI
+
+Реализуем метод расширения для `ServiceCollection`, и рассмотрим как он работает.
+
+```csharp
+public static class ServiceCollectionExtensions
+{
+    public static ServiceCollection AddScopedWithLogger<TService, TServiceInstance, TServiceLogger>(
+        this ServiceCollection services)
+        where TService : class
+        where TServiceInstance : class, TService
+        where TServiceLogger : class
+    {
+        // Регистрация TServiceInstance.
+        services.AddScoped<TServiceInstance>();
+        // Регистрация TServiceLogger.
+        services.AddScoped<TServiceLogger>();
+        // Регистрация TService.
+        services.AddScoped<TService>(sp =>
+        {
+            var instance = sp.GetRequiredService<TServiceInstance>();
+            var logger = sp.GetRequiredService<TServiceLogger>();
+            var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+            // Помещаем instance и logger в ConditionalWeakTable.
+            conditionalWeekTable.Add(instance, logger);
+
+            return instance;
+        });
+
+        return services;
+    }
+}
+
+```
+
+Метод `AddScopedWithLogger` выполняет всю необходимую работу:
+- регистрирует все типы в DI.
+- реализует логику создания и увязывания бизнес-класса и класса обработчика его событий.
+
+**Важно** - в DI контейнере необходимо разделить логику создания самого объекта бизнес-класса от логики создания экземпляра со всеми его теневыми объектами. Для этого лучше всего использовать контракты бизнес-классов (интерфейсы).
+
+
+```csharp
+public class OrderEventArgs : EventArgs
+{
+    public int OrderId { get; set; }
+}
+
+public interface IOrderService
+{
+    event EventHandler<OrderEventArgs> OrderCreated;
+    void CreateOrder(int id, string customer);
+}
+```
+
+Таким образом DI контейнер передаст в конструтор `OrderServiceLogger` экземпляр `OrderService`.
+
+**В бизнес логике необходимо использовать только контракты**, что является рекомендуемым подходом.
+
+```csharp
+class OrderManager : IOrderManager
+{
+    public OrderManager(IOrderService orderService)
+    {
+        ...
+    }
+}
+```
+
+Корректно регистрируем все типы в контейнере:
+
+```csharp
+var services = new ServiceCollection();
+services.AddScopedWithLogger<IOrderService, OrderService, OrderServiceLogger>();
+```
+
+Теперь создание объекта для его контракта `IOrderService` приведёт к вызову следующего кода из метода расширения
+
+```csharp
+...
+// Регистрация TService.
+services.AddScoped<TService>(sp =>
+{
+    var instance = sp.GetRequiredService<TServiceInstance>();
+    var logger = sp.GetRequiredService<TServiceLogger>();
+    var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+    // Помещаем instance и logger в ConditionalWeakTable.
+    conditionalWeekTable.Add(instance, logger);
+
+    return instance;
+});
+...
+```
+
+Сделаю расшифровку для сочетания параметров `IOrderService, OrderService, OrderServiceLogger`.
+
+```csharp
+services.AddScoped<IOrderService>(sp =>
+{
+    var instance = sp.GetRequiredService<OrderService>();
+    var logger = sp.GetRequiredService<OrderServiceLogger>();
+    var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+    // Помещаем instance и logger в ConditionalWeakTable.
+    conditionalWeekTable.Add(instance, logger);
+
+    return instance;
+});
+```
+
+Как видите, всё просто. Создаются объекты `OrderService`, `OrderServiceLogger` со всеми зависимостями,
+далее оба объекта сохраняются в таблице `ConditionalWeakTable<object, object>`.
+
+```csharp
+...
+var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+    // Помещаем instance и logger в ConditionalWeakTable.
+    conditionalWeekTable.Add(instance, logger);
+...
+```
+
+Сам объект `ConditionalWeakTable<object, object>` должен быть зарегистрирован в DI контейнере со временем жизни
+равным или большим чем `OrderService`, `OrderServiceLogger`.
+
+Рекомендую использовать `Scoped` если регистрируемые объекты живут не дольше. `Singleton` использовать не обязательно.
+
+Ну и последний элемент пазла - необходимо на уровне приложения создать экземпляр `ConditionalWeakTable<object, object>`, который живет не меньше чем хранимые в нём объекты.
+
+Самый простой пример:
+
+```csharp
+class Program
+{
+    private static void Main()
+    {
+        var services = new ServiceCollection();
+        services.AddScoped<ConditionalWeakTable<object, object>>();
+
+        // регистрация всех типов и другой сервисный код приложения
+        ...
+        ...
+
+        // Instance ConditionalWeakTable, который держит ссылки на теневые объекты.
+        var conditionalWeekTable = serviceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+        // Запускаем работу приложения.
+        Run(...);
+    }
+}
+```
+
+## Заключение
+
+**Какие преимущества подхода вижу я:**
+- Логгер автоматически привязывается к конкретному инстансу класса.
+- Слабые ссылки гарантируют работу без утечек памяти.
+- Централизованная подписка в DI-контейнере.
+- Возможность гибкого расширения количества теневых сервисов и управления ими.
+- Крепкий SOILD с минимумом компромиссов.
+
+Рекомендую использовать для серьёзных проектов, где качественная архитектура даёт ощутимое преимущество.
+
 
 
