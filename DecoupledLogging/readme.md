@@ -129,9 +129,9 @@ public static class ServiceCollectionExtensions
         {
             var instance = sp.GetRequiredService<TServiceInstance>();
             var logger = sp.GetRequiredService<TServiceLogger>();
-            var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+            var conditionalWeakTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
             // Помещаем instance и logger в ConditionalWeakTable.
-            conditionalWeekTable.Add(instance, logger);
+            conditionalWeakTable.Add(instance, logger);
 
             return instance;
         });
@@ -192,9 +192,9 @@ services.AddScoped<TService>(sp =>
 {
     var instance = sp.GetRequiredService<TServiceInstance>();
     var logger = sp.GetRequiredService<TServiceLogger>();
-    var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+    var conditionalWeakTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
     // Помещаем instance и logger в ConditionalWeakTable.
-    conditionalWeekTable.Add(instance, logger);
+    conditionalWeakTable.Add(instance, logger);
 
     return instance;
 });
@@ -208,9 +208,9 @@ services.AddScoped<IOrderService>(sp =>
 {
     var instance = sp.GetRequiredService<OrderService>();
     var logger = sp.GetRequiredService<OrderServiceLogger>();
-    var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+    var conditionalWeakTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
     // Помещаем instance и logger в ConditionalWeakTable.
-    conditionalWeekTable.Add(instance, logger);
+    conditionalWeakTable.Add(instance, logger);
 
     return instance;
 });
@@ -221,9 +221,9 @@ services.AddScoped<IOrderService>(sp =>
 
 ```csharp
 ...
-var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+var conditionalWeakTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
     // Помещаем instance и logger в ConditionalWeakTable.
-    conditionalWeekTable.Add(instance, logger);
+    conditionalWeakTable.Add(instance, logger);
 ...
 ```
 
@@ -249,7 +249,7 @@ class Program
         ...
 
         // Instance ConditionalWeakTable, который держит ссылки на теневые объекты.
-        var conditionalWeekTable = serviceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+        var conditionalWeakTable = serviceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
         // Запускаем работу приложения.
         Run(...);
     }
