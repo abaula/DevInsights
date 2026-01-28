@@ -45,5 +45,6 @@
  - [Менеджер - Мама утка](MotherDuck/readme.md)
  - [Почему паразиты побеждают](WhyParasitesWin/readme.md)
  - [Как не потерять фокус задачи из-за перенапряжения](HowToStayFocused/readme.md)
+ - [Короли трущоб](SlumKings/readme.md)
 
 
