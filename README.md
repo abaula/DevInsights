@@ -14,6 +14,7 @@
 - [Архитектура подсистемы управления заданиями](TaskMangementArchitecture/readme.md)
 - [Использование Lazy с Dependency Injection](LazyDependencyInjection/readme.md)
 - [Теневое логирование через события](DecoupledLogging/readme.md)
+- [Ортогональная архитектура ПО — инфоцыганский buzzword](OrthogonalBuzzword/readme.md)
 
 ## Инструменты разработки
 
