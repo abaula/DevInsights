@@ -47,5 +47,6 @@
  - [Почему паразиты побеждают](WhyParasitesWin/readme.md)
  - [Как не потерять фокус задачи из-за перенапряжения](HowToStayFocused/readme.md)
  - [Короли трущоб](SlumKings/readme.md)
+ - [Свадебные генералы ИТ-индустрии](ItFigureheads/readme.md)
 
 
