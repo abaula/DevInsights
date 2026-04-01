@@ -15,6 +15,7 @@
 - [Использование Lazy с Dependency Injection](LazyDependencyInjection/readme.md)
 - [Теневое логирование через события](DecoupledLogging/readme.md)
 - [Ортогональная архитектура ПО — инфоцыганский buzzword](OrthogonalBuzzword/readme.md)
+- [Эксклюзивный доступ к объектам в .NET](LockedValueFactory/readme.md)
 
 ## Инструменты разработки
 
