@@ -49,5 +49,6 @@
  - [Как не потерять фокус задачи из-за перенапряжения](HowToStayFocused/readme.md)
  - [Короли трущоб](SlumKings/readme.md)
  - [Свадебные генералы ИТ-индустрии](ItFigureheads/readme.md)
+ - [Стратегическое совещание по критической инцидентной ситуации](CriticalIncidentStrategicMeeting/readme.md)
 
 
