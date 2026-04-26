@@ -54,5 +54,6 @@
  - [Свадебные генералы ИТ-индустрии](ItFigureheads/readme.md)
  - [Стратегическое совещание по критической инцидентной ситуации](CriticalIncidentStrategicMeeting/readme.md)
  - [Барьер компетентности: почему нельзя управлять тем, чего не понимаешь](CompetenceBarrier/readme.md)
+ - [Ловушка внутреннего сценариста: как виртуальные реальности нашего мышления подменяют личность](TheInnerScriptwriterTrap/readme.md)
 
 
