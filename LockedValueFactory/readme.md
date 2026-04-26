@@ -56,8 +56,8 @@ public class LockedValueFactory<T> where T : class
 }
 ```
 
-- **SemaphoreSlim(1)** — это как один ключ от комнаты: кто взял, тот и работает, остальные ждут.
-- **WaitAsync()** — не блокирует поток, пока ждёт, что важно для асинхронных приложений.
+- 🔹**SemaphoreSlim(1)** — это как один ключ от комнаты: кто взял, тот и работает, остальные ждут.
+- 🔹**WaitAsync()** — не блокирует поток, пока ждёт, что важно для асинхронных приложений.
 
 ### 2️⃣ LockedValue<T> — обёртка, которая «отпускает блокировку с объекта» при вызове Dispose()
 
@@ -136,8 +136,8 @@ services.AddSingletonWithLazy<IJobCollection, JobCollection>();
 services.AddSingletonWithLazy<LockedValueFactory<IJobCollection>>();
 ```
 
-🔹 **IJobCollection** — `Singleton`: один экземпляр на всё приложение.
-🔹 **LockedValueFactory<IJobCollection>** — тоже `Singleton`: один семафор на все запросы.
+- 🔹**IJobCollection** — `Singleton`: один экземпляр на всё приложение.
+- 🔹**LockedValueFactory<IJobCollection>** — тоже `Singleton`: один семафор на все запросы.
 
 > **Важно:** если бы фабрика создавалась каждый раз заново, у каждого экземпляра был бы свой семафор, и блокировка не работала бы глобально.
 
