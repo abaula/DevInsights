@@ -57,6 +57,7 @@
  - [Ловушка внутреннего сценариста: как виртуальные реальности нашего мышления подменяют личность](TheInnerScriptwriterTrap/readme.md)
  - [Спор ради спора, когда диалог становится игрой в статус](ArgueForTheSakeOfArguing/readme.md)
  - [Знания с side effects и без: как оценивать технических специалистов, не путая потенциал с результатом](KnowledgeWithSideEffects/readme.md)
+ - [Почему ты интеллектуальный чёрт](IntellectualDemon/readme.md)
 
  ## О том, и об этом
 
