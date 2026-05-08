@@ -58,6 +58,7 @@
  - [Спор ради спора, когда диалог становится игрой в статус](ArgueForTheSakeOfArguing/readme.md)
  - [Знания с side effects и без: как оценивать технических специалистов, не путая потенциал с результатом](KnowledgeWithSideEffects/readme.md)
  - [Почему ты интеллектуальный чёрт](IntellectualDemon/readme.md)
+ - [Визуальное мышление в прошлом — мозг в растерянности](VisualThinkingInThePast/readme.md)
 
  ## О том, и об этом
 
