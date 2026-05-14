@@ -60,6 +60,7 @@
  - [Почему ты интеллектуальный чёрт](IntellectualDemon/readme.md)
  - [Визуальное мышление в прошлом — мозг в растерянности](VisualThinkingInThePast/readme.md)
  - [Ловушка очевидности: почему «простые» решения рождают деструктивные мысли и как с этим бороться](TheObviousnessTrap/readme.md)
+ - [Как беспокойство управляет управленцами](HowAnxietyDrivesManagers/readme.md)
 
  ## О том, и об этом
 
