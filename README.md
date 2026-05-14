@@ -69,4 +69,5 @@
 - [Двойные стандарты: почему ИИ пугает дилетантов?](WhyDoesAIFrightenAmateurs/readme.md)
 - [О стерильности и бузе, почему борцы за чистоту языка обкрадывают сами себя](GrammarNazisMustGo/readme.md)
 - [ИИ-аристократия: кто на самом деле стоит за фасадом Anthropic](AIAristocracyBehindOfAnthropic/readme.md)
+- [Приватность под угрозой: как диалоги с ИИ превращаются в компромат на вас](PrivacyIsUnderThreat/readme.md)
 
