@@ -72,3 +72,4 @@
 - [ИИ-аристократия: кто на самом деле стоит за фасадом Anthropic](AIAristocracyBehindOfAnthropic/readme.md)
 - [Приватность под угрозой: как диалоги с ИИ превращаются в компромат на вас](PrivacyIsUnderThreat/readme.md)
 - [Трудности трансляции: почему выражать мысли — это отдельный навык и как ИИ помогает визуалам](ExpressingThoughtsSeparateSkill/readme.md)
+- [Диктатура клика: как коммерциализация уничтожает интеллектуальную среду интернета](ClickDictatorship/readme.md)
