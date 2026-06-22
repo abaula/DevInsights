@@ -17,6 +17,7 @@
 - [Ортогональная архитектура ПО — инфоцыганский buzzword](OrthogonalBuzzword/readme.md)
 - [Эксклюзивный доступ к объектам в .NET](LockedValueFactory/readme.md)
 - [Распределённая мультиагентная архитектура в AI-ассистентах для программирования: от монолита к экосистеме навыков](DMAA/readme.md)
+- [Workflow Isolation: строим внутрипроцессных акторов в .NET без фреймворков](WorkflowIsolation/readme.md)
 
 ## Инструменты разработки
 
