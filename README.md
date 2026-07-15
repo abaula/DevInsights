@@ -64,6 +64,7 @@
  - [Визуальное мышление в прошлом — мозг в растерянности](VisualThinkingInThePast/readme.md)
  - [Ловушка очевидности: почему «простые» решения рождают деструктивные мысли и как с этим бороться](TheObviousnessTrap/readme.md)
  - [Как беспокойство управляет управленцами](HowAnxietyDrivesManagers/readme.md)
+ - [Зачем требовать от программиста знание математики? Развенчиваем главный миф индустрии](RequireProgrammerToKnowMathematics/readme.md)
 
  ## О том, и об этом
 
