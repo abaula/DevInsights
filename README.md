@@ -68,6 +68,7 @@
  - [Зачем требовать от программиста знание математики? Развенчиваем главный миф индустрии](RequireProgrammerToKnowMathematics/readme.md)
  - [Эффект зеркала или подмена целей при найме сотрудников](MirrorEffect/readme.md)
  - [Деструктивное мышление лиц, принимающих решения: механизмы влияния на взаимодействующие субъекты](DestructiveThinkingLeaders/readme.md)
+ - [Как работать с тревожным разработчиком](HowToWorkWithAnxiousDeveloper/readme.md)
 
  ## О том, и об этом
 
