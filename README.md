@@ -71,6 +71,7 @@
  - [Эффект зеркала или подмена целей при найме сотрудников](MirrorEffect/readme.md)
  - [Деструктивное мышление лиц, принимающих решения: механизмы влияния на взаимодействующие субъекты](DestructiveThinkingLeaders/readme.md)
  - [Как работать с тревожным разработчиком](HowToWorkWithAnxiousDeveloper/readme.md)
+ - [Крепостные микросервисы: как ИТ-отдел стал придворным театром современного бизнеса](SerfMicroservicesITDepartmentCourtTheater/readme.md)
 
  ## О том, и об этом
 
