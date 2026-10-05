@@ -21,6 +21,7 @@
 - [Workflow Isolation: строим внутрипроцессных акторов в .NET без фреймворков](WorkflowIsolation/readme.md)
 - [Догматизм против Прагматизма: Как «архитектурные наци» губят коммерческий код](ArchitecturalPurism/readme.md)
 - [Парадигма продуктовой алгоритмизации: компромисс между когнитивной нагрузкой, экономикой инфраструктуры и зрелостью системного управления](ParadigmProductAlgorithmization/readme.md)
+- [Комбинаторный взрыв фреймворков как следствие магического мышления](CombinatorialExplosionFrameworksMagicalThinking/readme.md)
 
 ## Инструменты разработки
 
