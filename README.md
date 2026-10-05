@@ -29,6 +29,7 @@
 
 - [Разработка в удалённых контейнерах](SshRemoteContainers/readme.md)
 - [AI ассистенты — подход wiki-first](AIAssistantWikiFirst/readme.md)
+- [Как сделать тестирование запросов к СУБД на тестовых данных надежным](MakeDBMSQueryTestingReliableUsingTestData/readme.md)
 
 ## Алгоритмы
 
