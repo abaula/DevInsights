@@ -19,6 +19,7 @@
 - [Распределённая мультиагентная архитектура в AI-ассистентах для программирования: от монолита к экосистеме навыков](DMAA/readme.md)
 - [Архитектура асинхронности в .NET: Почему угон потоков (Thread Hijacking) — это не баг дебаггера, а фундаментальная архитектура рантайма](ThreadHijacking/readme.md)
 - [Workflow Isolation: строим внутрипроцессных акторов в .NET без фреймворков](WorkflowIsolation/readme.md)
+- [Почему `Channels + Actor` это эволюция, а не просто Event-Driven Architecture](WhyChannelsPlusActorIsEvolution/readme.md)
 - [Догматизм против Прагматизма: Как «архитектурные наци» губят коммерческий код](ArchitecturalPurism/readme.md)
 - [Парадигма продуктовой алгоритмизации: компромисс между когнитивной нагрузкой, экономикой инфраструктуры и зрелостью системного управления](ParadigmProductAlgorithmization/readme.md)
 - [Комбинаторный взрыв фреймворков как следствие магического мышления](CombinatorialExplosionFrameworksMagicalThinking/readme.md)

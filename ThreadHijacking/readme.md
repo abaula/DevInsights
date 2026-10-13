@@ -116,6 +116,10 @@ public class PaymentProcessor
 
 🔗 **[Workflow Isolation: Решение проблемы Thread Hijacking через System.Threading.Channels](https://github.com/abaula/DevInsights/blob/main/WorkflowIsolation/readme.md)**
 
+Заметка с важными отличиями от EDA:
+
+🔗 **[Почему `Channels + Actor` это эволюция, а не просто Event-Driven Architecture](https://github.com/abaula/DevInsights/blob/main/WhyChannelsPlusActorIsEvolution/readme.md)**
+
 ## Резюме
 
 В высоконагруженном .NET мы пишем код не для компилятора и не для дебаггера. Мы пишем код для планировщика потоков, алгоритма Hill Climbing и кэшей процессора. Понимание того, как `await` на самом деле влияет на поток выполнения в CLR — это то, что отличает просто «знающего синтаксис» разработчика от инженера, способного строить предсказуемые и устойчивые системы.
