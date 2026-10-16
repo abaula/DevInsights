@@ -24,6 +24,7 @@
 - [Парадигма продуктовой алгоритмизации: компромисс между когнитивной нагрузкой, экономикой инфраструктуры и зрелостью системного управления](ParadigmProductAlgorithmization/readme.md)
 - [Комбинаторный взрыв фреймворков как следствие магического мышления](CombinatorialExplosionFrameworksMagicalThinking/readme.md)
 - [От DNS до Service Mesh: управление адресацией и трафиком в распределённых приложениях](FromDNSToServiceMesh/readme.md)
+- [Справочник разработчика: Управление памятью, типы и контракты данных в современном C#](DevGuideMemoryManagementCSharp/readme.md)
 
 ## Инструменты разработки
 
