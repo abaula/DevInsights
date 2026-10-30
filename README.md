@@ -76,6 +76,7 @@
  - [Деструктивное мышление лиц, принимающих решения: механизмы влияния на взаимодействующие субъекты](DestructiveThinkingLeaders/readme.md)
  - [Как работать с тревожным разработчиком](HowToWorkWithAnxiousDeveloper/readme.md)
  - [Крепостные микросервисы: как ИТ-отдел стал придворным театром современного бизнеса](SerfMicroservicesITDepartmentCourtTheater/readme.md)
+ - [Иллюзия инженерии: Почему управление - это искусство понимания человека, а не настройка KPI](ManagementIllusionOfEngineering/readme.md)
 
  ## О том, и об этом
 
