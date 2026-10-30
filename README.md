@@ -89,3 +89,4 @@
 - [Трудности трансляции: почему выражать мысли — это отдельный навык и как ИИ помогает визуалам](ExpressingThoughtsSeparateSkill/readme.md)
 - [Диктатура клика: как коммерциализация уничтожает интеллектуальную среду интернета](ClickDictatorship/readme.md)
 - [Как готовить сложные доклады](HowPrepareComplexPresentations/readme.md)
+- [Кризис института критики: От анализа смыслов к эндорфиновому снобизму](CrisisInstitutionOfCriticism/readme.md)
