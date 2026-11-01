@@ -25,6 +25,7 @@
 - [Комбинаторный взрыв фреймворков как следствие магического мышления](CombinatorialExplosionFrameworksMagicalThinking/readme.md)
 - [От DNS до Service Mesh: управление адресацией и трафиком в распределённых приложениях](FromDNSToServiceMesh/readme.md)
 - [Справочник разработчика: Управление памятью, типы и контракты данных в современном C#](DevGuideMemoryManagementCSharp/readme.md)
+- [Сквозь маркетинговый шум: Инженерная деконструкция систем хранения данных](EngineeringDeconstructionDataStorageSystems/readme.md)
 
 ## Инструменты разработки
 
