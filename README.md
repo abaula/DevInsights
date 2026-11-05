@@ -26,6 +26,7 @@
 - [От DNS до Service Mesh: управление адресацией и трафиком в распределённых приложениях](FromDNSToServiceMesh/readme.md)
 - [Справочник разработчика: Управление памятью, типы и контракты данных в современном C#](DevGuideMemoryManagementCSharp/readme.md)
 - [Сквозь маркетинговый шум: Инженерная деконструкция систем хранения данных](EngineeringDeconstructionDataStorageSystems/readme.md)
+- [Когда использовать FSM в реальной жизни: как укротить сложность и написать минимум кода](FSMInRealWorldProjects/readme.md)
 
 ## Инструменты разработки
 
