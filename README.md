@@ -43,6 +43,7 @@
 
 - [Масштабируемое слияние рангов (Scaled Rank Fusion)](ScaledRankFusion/readme.md)
 - [Форматированный Output в LLM: механика, контроль и оптимизация для локального инференса](FormattedLLMOutput/readme.md)
+- [Теорема Байеса в реальной жизни - это не про формулу](BayesInRealLife/readme.md)
 
 ## Управление
 
