@@ -95,3 +95,4 @@
 - [Как готовить сложные доклады](HowPrepareComplexPresentations/readme.md)
 - [Кризис института критики: От анализа смыслов к эндорфиновому снобизму](CrisisInstitutionOfCriticism/readme.md)
 - [Эволюция душноты: как закон коллективного разума превратился в триумф коллективной серости](EvolutionOfStiflingness/readme.md)
+- [Добро пожаловать в цифровой вольер: как YouTube воскресил человеческие зоопарки](WelcomeToDigitalEnclosure/readme.md)
