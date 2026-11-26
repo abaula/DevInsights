@@ -98,3 +98,4 @@
 - [Эволюция душноты: как закон коллективного разума превратился в триумф коллективной серости](EvolutionOfStiflingness/readme.md)
 - [Добро пожаловать в цифровой вольер: как YouTube воскресил человеческие зоопарки](WelcomeToDigitalEnclosure/readme.md)
 - [Искусство интеллектуальной войны: Тактика спора по заветам Сунь-Цзы](ArtOfIntellectualWarfareSunTzu/readme.md)
+- [Ловушка выстраданного счастья: почему мы обесцениваем то, что достаётся легко](TrapHardWonHappiness/readme.md)
