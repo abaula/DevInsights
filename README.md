@@ -37,6 +37,7 @@
 - [AI ассистенты — подход wiki-first](AIAssistantWikiFirst/readme.md)
 - [Как сделать тестирование запросов к СУБД на тестовых данных надежным](MakeDBMSQueryTestingReliableUsingTestData/readme.md)
 - [Elasticsearch (ES) не является полноценной базой данных](ElasticsearchNotFullFledgedDatabase/readme.md)
+- [Почему ИИ не заменит сильных разработчиков - дело не в коде, а в цене ошибки](WhyAIWontReplaceDevelopers/readme.md)
 
 ## Алгоритмы
 
