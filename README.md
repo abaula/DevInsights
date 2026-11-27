@@ -38,6 +38,7 @@
 - [Как сделать тестирование запросов к СУБД на тестовых данных надежным](MakeDBMSQueryTestingReliableUsingTestData/readme.md)
 - [Elasticsearch (ES) не является полноценной базой данных](ElasticsearchNotFullFledgedDatabase/readme.md)
 - [Почему ИИ не заменит сильных разработчиков - дело не в коде, а в цене ошибки](WhyAIWontReplaceDevelopers/readme.md)
+- [Ренессанс TDD в эпоху нейросетей: как превратить вайб-кодинг в Relaxed Engineering](RelaxedEngineering/readme.md)
 
 ## Алгоритмы
 
