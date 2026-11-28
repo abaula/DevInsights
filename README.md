@@ -39,6 +39,7 @@
 - [Elasticsearch (ES) не является полноценной базой данных](ElasticsearchNotFullFledgedDatabase/readme.md)
 - [Почему ИИ не заменит сильных разработчиков - дело не в коде, а в цене ошибки](WhyAIWontReplaceDevelopers/readme.md)
 - [Ренессанс TDD в эпоху нейросетей: как превратить вайб-кодинг в Relaxed Engineering](RelaxedEngineering/readme.md)
+- [Relaxed Engineering vs. Spec-Driven Development: как выбрать масштаб инженерного конвейера в эпоху ИИ](RelaxedEngineeringVsSDD/readme.md)
 
 ## Алгоритмы
 
